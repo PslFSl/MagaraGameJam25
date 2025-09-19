@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerEvent : MonoBehaviour
 {
@@ -9,17 +11,20 @@ public class PlayerEvent : MonoBehaviour
     public float fallSpeed;
     float hor;
     private Rigidbody2D rb;
+    public bool canJump;
 
     [Header("Ground Check")]
-    public LayerMask groundLayer;
+    LayerMask groundLayer=(1<<7)|(1<<6);
     public Transform feetPos;
-    float checkRad=1f;
+    float checkRad=0.8f;
     public bool isGrounded;
     [Header("Rotate")]
-    public float firstRot;
-    public float lastRot;
+    float firstRot;
+    float lastRot;
     bool turnRight;
     bool turnLeft;
+    [Header("Attraction")]
+    public LayerMask poleLayer;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,14 +32,33 @@ public class PlayerEvent : MonoBehaviour
     }
     void Update()
     {
+        RaycastHit2D hitNorth = Physics2D.Raycast(transform.position,transform.TransformDirection(Vector2.right),5,poleLayer);
+        RaycastHit2D hitSouth = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left), 5, poleLayer);
+        if (hitNorth!)
+        {
+            PoleScript poleScript = hitNorth.collider.gameObject.GetComponent<PoleScript>();
+            poleScript.PoleAttraction(transform.position, 1);
+        }
+        if (hitSouth!)
+        {
+            PoleScript poleScript = hitSouth.collider.gameObject.GetComponent<PoleScript>();
+            poleScript.PoleAttraction(transform.position,0);
+
+        }
+
+        
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRad, groundLayer);
+
+
         hor = Input.GetAxisRaw("Horizontal");
         transform.Translate(hor * Time.deltaTime*moveSpeed,0,0,Space.World);
 
-        if (Input.GetKeyDown(KeyCode.Space)&&isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space)&&isGrounded&&canJump)
         {
             rb.gravityScale = 1;
-            rb.AddForce(jumpSpeed * Vector2.up *2,ForceMode2D.Impulse);
+            rb.AddForce(jumpSpeed * Vector2.up *5,ForceMode2D.Impulse);
+            canJump = false;
+            StartCoroutine(waitForjump());
         }
         else if (rb.linearVelocity.y < 0)
         {
@@ -45,16 +69,18 @@ public class PlayerEvent : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, firstRot);
 
 
-        if (Input.GetKeyDown(KeyCode.E)&&rb.linearVelocity.y>0)
+        if (Input.GetKeyDown(KeyCode.E)&&isGrounded)
         {
              lastRot -= 90;
             turnRight = true;
-            
+            rb.AddForce(jumpSpeed * Vector3.up * 4, ForceMode2D.Impulse);
+
         }
-        if (Input.GetKeyDown(KeyCode.Q) && rb.linearVelocity.y > 0)
+        if (Input.GetKeyDown(KeyCode.Q)&&isGrounded)
         {
             lastRot += 90;
             turnLeft = true;
+            rb.AddForce(jumpSpeed*Vector3.up*4, ForceMode2D.Impulse);
 
         }
 
@@ -78,5 +104,9 @@ public class PlayerEvent : MonoBehaviour
 
     }
     
-    
+    IEnumerator waitForjump()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canJump = true;
+    }
 }
