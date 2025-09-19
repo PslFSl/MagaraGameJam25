@@ -7,10 +7,33 @@ public class PoleScript : MonoBehaviour
     public int pole;
     public LayerMask layerMask;
     float checkRad =0.55f;
-    public bool canMove;
+    bool canMove;
+    [Header("Between Them Atrraction")]
+    float checkGameObjectRad=2;
+    public LayerMask layer;
+    public float distance;
+    private Vector3 pos;
+    public bool canAttraction;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();   
+    }
+    private void Update()
+    {
+        Collider2D isAtrraction = Physics2D.OverlapCircle(transform.position, checkGameObjectRad, layer);
+        if (isAtrraction!=null&&isAtrraction.gameObject.GetComponent<PoleScript>().pole ==pole&&canAttraction )
+        {
+            pos=isAtrraction.gameObject.transform.position;
+            distance = Vector3.Distance(transform.position, pos);
+            if (distance < 3) { transform.Translate((transform.position - pos).normalized * Time.deltaTime * 10, Space.World); ; }
+        }
+        else if (isAtrraction != null&&canAttraction)
+        {
+            pos = isAtrraction.gameObject.transform.position;
+            distance = Vector3.Distance(transform.position, pos);
+            if (distance < 3) { transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, 0.3f); }
+        }
+        
     }
     public void PoleAttraction(Vector3 pos,int charPole)
     { 
@@ -35,4 +58,22 @@ public class PoleScript : MonoBehaviour
 
     }
     
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("pole"))
+        {
+            canAttraction = false;
+        }
+        
+
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("pole"))
+        {
+            canAttraction = true;
+        }
+
+    }
+
 }

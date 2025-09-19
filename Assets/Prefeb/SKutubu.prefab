@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3882777203756266708}
   m_Layer: 7
   m_Name: SKutubu
-  m_TagString: Untagged
+  m_TagString: pole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,4 +182,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  canMove: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 128
+  distance: 0
+  canAttraction: 1
