@@ -6,7 +6,7 @@ public class PoleScript : MonoBehaviour
     private Rigidbody2D rb;
     public int pole;
     public LayerMask layerMask;
-    float checkRad =0.55f;
+    float checkRad =0.5f;
     bool canMove;
     [Header("Between Them Atrraction")]
     float checkGameObjectRad=2;
