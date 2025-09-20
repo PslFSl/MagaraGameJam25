@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEvent
   moveSpeed: 3
-  jumpSpeed: 1
+  jumpSpeed: 1.6
   fallSpeed: 20
   canJump: 1
   feetPos: {fileID: 2966581453262446183}

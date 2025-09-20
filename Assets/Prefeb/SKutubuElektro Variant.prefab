@@ -12,17 +12,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: SKutubuElektro Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1505978898757497616, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.1166667
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505978898757497616, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.1166667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163677010763287085, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8851239108296495667, guid: 1be581f4ac82f3f489865aa6b0427764, type: 3}
     - target: {fileID: 3163677010763287085, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
       propertyPath: m_Color.b
-      value: 0.3433962
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3163677010763287085, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
       propertyPath: m_Color.g
-      value: 0.3303687
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3163677010763287085, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7901688338301627307, guid: 59f1a73d7f624e143a8c2e1242788fba, type: 3}
       propertyPath: m_LocalPosition.x

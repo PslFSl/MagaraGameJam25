@@ -5,6 +5,8 @@ public class GameButton : MonoBehaviour
     public bool physicDoor;
     public GameObject gate;
     private DoorScript doorScript;
+    public Sprite noPress;
+    public Sprite Press;
     private void Start()
     {
         doorScript=gate.GetComponent<DoorScript>();
@@ -13,6 +15,7 @@ public class GameButton : MonoBehaviour
     {
         if(collision != null)
         {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Press;
             doorScript.doorIsOpen = "open";
         }
     }
@@ -20,6 +23,7 @@ public class GameButton : MonoBehaviour
     {
         if (collision&&physicDoor)
         {
+            gameObject.GetComponent<SpriteRenderer>().sprite = noPress;
             doorScript.doorIsOpen = "close";
         }
     }

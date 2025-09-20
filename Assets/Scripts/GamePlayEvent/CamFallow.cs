@@ -10,6 +10,6 @@ public class CamFallow : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position,myChar.transform.position + new Vector3(0,2,-10), ref velocity, 0.2f);
+        transform.position = Vector3.SmoothDamp(transform.position,myChar.transform.position + new Vector3(0,1,-10), ref velocity, 0.1f);
     }
 }

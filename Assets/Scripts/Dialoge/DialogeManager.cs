@@ -8,15 +8,19 @@ public class DialogeManager : MonoBehaviour
     public Text dialogText;
     public float writeSpeed=0.1f;
     string[] dialogeArr;
+    public GameObject Image;
+    public bool isStarted=false;
     public void DialogeStart(string[] dialoge)
     {
+        Image.SetActive(true); 
         index = 0;
         dialogeArr = dialoge;
+        isStarted = true;
         WriteSentences();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && dialogeArr[index]==dialogText.text)
+        if (Input.GetKeyDown(KeyCode.F)&&isStarted && dialogeArr[index]==dialogText.text)
         {
             if (dialogeArr[index] != null)
             {
@@ -50,7 +54,8 @@ public class DialogeManager : MonoBehaviour
     }
     private void DialogeEnd()
     {
-
+        isStarted = false;
+        Image.SetActive(false);
     }
     
 

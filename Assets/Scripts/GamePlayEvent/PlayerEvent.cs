@@ -100,14 +100,14 @@ public class PlayerEvent : MonoBehaviour
         {
              lastRot -= 90;
             turnRight = true;
-            rb.AddForce(jumpSpeed * Vector3.up * 5, ForceMode2D.Impulse);
+            rb.AddForce(jumpSpeed * Vector3.up * 2, ForceMode2D.Impulse);
 
         }
         if (Input.GetKeyDown(KeyCode.Q)&&(isGrounded||isCeiling))
         {
             lastRot += 90;
             turnLeft = true;
-            rb.AddForce(jumpSpeed*Vector3.up*5, ForceMode2D.Impulse);
+            rb.AddForce(jumpSpeed*Vector3.up*2, ForceMode2D.Impulse);
 
         }
 
